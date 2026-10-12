@@ -56,7 +56,7 @@ export const content = {
     ko: {
         title: 'BLUEAT — 만들고 싶은 것을 만듭니다',
         welcome: { before: '', after: '에 오신 걸 환영합니다' },
-        tagline: '1인 크리에이티브 스튜디오 — 만들고 싶은 것을 만듭니다.',
+        tagline: '만들고 싶은 것을 만듭니다.',
         tipsTitle: '시작하기:',
         tips: [
             { before: '', cmd: '/about', after: ' 으로 소개 보기' },
@@ -77,8 +77,7 @@ export const content = {
             about: [{
                 kind: 'say',
                 lines: [
-                    { text: 'BLUEAT은 1인 크리에이티브 스튜디오예요.', tone: 'strong' },
-                    { text: '거창한 목표보다는 제가 쓰고 싶은 앱을 만듭니다.' },
+                    { text: '거창한 목표보다는 제가 쓰고 싶은 앱을 만듭니다.', tone: 'strong' },
                     { text: 'BLUEAT은 저의 아이디어를 기록하는 공간입니다.' },
                 ],
             }],
@@ -117,7 +116,7 @@ export const content = {
     en: {
         title: 'BLUEAT — Building what I want',
         welcome: { before: 'Welcome to ', after: '' },
-        tagline: 'A solo creative studio — building what I want.',
+        tagline: 'Building what I want.',
         tipsTitle: 'Getting started:',
         tips: [
             { before: 'Run ', cmd: '/about', after: ' to meet BLUEAT' },
@@ -138,8 +137,7 @@ export const content = {
             about: [{
                 kind: 'say',
                 lines: [
-                    { text: 'BLUEAT is a solo creative studio.', tone: 'strong' },
-                    { text: 'I simply create applications that I want to use.' },
+                    { text: 'I simply create applications that I want to use.', tone: 'strong' },
                     { text: 'BLUEAT is a personal archive of my creative ideas.' },
                 ],
             }],
