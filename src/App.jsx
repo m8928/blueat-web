@@ -1,29 +1,54 @@
-import React, { useState } from 'react';
-import Hero from './components/Hero';
-import Portfolio from './components/Portfolio';
-import Footer from './components/Footer';
-import LanguageToggle from './components/LanguageToggle';
-import { translations } from './translations';
+import React, { useEffect, useState } from 'react';
+import Terminal from './components/Terminal';
+import { content } from './content';
+
+const STORAGE_KEY = 'blueat-lang';
+const VISITED_KEY = 'blueat-visited';
+
+// Saved choice first, then the browser language; Korean browsers get Korean.
+function initialLanguage() {
+    try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved === 'ko' || saved === 'en') return saved;
+    } catch {
+        // Storage can be unavailable (private mode, blocked cookies).
+    }
+    const browser = typeof navigator !== 'undefined' ? navigator.language || '' : '';
+    return browser.toLowerCase().startsWith('ko') ? 'ko' : 'en';
+}
+
+function readVisited() {
+    try {
+        return localStorage.getItem(VISITED_KEY) === '1';
+    } catch {
+        return false;
+    }
+}
 
 function App() {
-    const [language, setLanguage] = useState('ko');
+    const [language, setLanguage] = useState(initialLanguage);
+    // Read once: first-time visitors get the typed demo, returning ones see it finished.
+    const [returning] = useState(readVisited);
 
-    const toggleLanguage = () => {
-        setLanguage(prev => prev === 'en' ? 'ko' : 'en');
-    };
+    useEffect(() => {
+        try {
+            localStorage.setItem(VISITED_KEY, '1');
+        } catch {
+            // Ignore; they'll just see the demo again.
+        }
+    }, []);
 
-    const t = translations[language];
+    useEffect(() => {
+        document.documentElement.lang = language;
+        document.title = content[language].title;
+        try {
+            localStorage.setItem(STORAGE_KEY, language);
+        } catch {
+            // Ignore; the choice just won't persist.
+        }
+    }, [language]);
 
-    return (
-        <div className="min-h-screen bg-background text-foreground font-sans selection:bg-foreground/10 selection:text-foreground">
-            <LanguageToggle language={language} toggleLanguage={toggleLanguage} />
-            <main>
-                <Hero t={t.hero} />
-                <Portfolio t={t.portfolio} />
-            </main>
-            <Footer t={t.footer} />
-        </div>
-    );
+    return <Terminal lang={language} setLang={setLanguage} returning={returning} />;
 }
 
 export default App;

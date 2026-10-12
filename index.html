@@ -1,18 +1,46 @@
 <!doctype html>
-<html lang="en">
+<html lang="ko">
 
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BLUEAT</title>
+  <title>BLUEAT — 만들고 싶은 것을 만듭니다</title>
+  <meta name="description" content="거창한 목표보다는 제가 쓰고 싶은 앱을 만듭니다. iOS Safari 웹폰트 확장 SFFE를 만들었습니다." />
+  <meta name="theme-color" content="#0E1013" />
+  <link rel="canonical" href="https://blueat.me/" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://blueat.me/" />
+  <meta property="og:site_name" content="BLUEAT" />
+  <meta property="og:title" content="BLUEAT — 만들고 싶은 것을 만듭니다" />
+  <meta property="og:description" content="거창한 목표보다는 제가 쓰고 싶은 앱을 만듭니다." />
+  <meta property="og:image" content="https://blueat.me/og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Nanum+Gothic+Coding:wght@400;700&display=swap" rel="stylesheet">
+  <script>document.documentElement.classList.add('js');</script>
 </head>
 
-<body class="bg-background text-foreground antialiased selection:bg-blue-500/30 selection:text-white">
-  <div id="root"></div>
+<body>
+  <div id="root">
+    <!-- Plain content for crawlers and visitors without JavaScript; React replaces it. -->
+    <main class="no-js-fallback mx-auto max-w-[880px] px-4 py-8 sm:px-8 sm:py-12">
+      <h1 class="font-bold text-term-bright">BLUEAT</h1>
+      <p class="text-term-muted">만들고 싶은 것을 만듭니다.</p>
+      <p class="mt-6">거창한 목표보다는 제가 쓰고 싶은 앱을 만듭니다. BLUEAT은 저의 아이디어를 기록하는 공간입니다.</p>
+      <ul class="mt-6">
+        <li><a class="text-accent underline" href="https://sffe.blueat.me/">SFFE</a> — iOS의 모든 웹사이트에 사용자 지정 웹 폰트를 적용할 수 있는 Safari 확장 프로그램입니다.</li>
+        <li>준비 중인 프로젝트 — 현재 개발 중인 생산성 애플리케이션입니다.</li>
+      </ul>
+      <p class="mt-6"><a class="text-accent underline" href="mailto:blueat@blueat.me">blueat@blueat.me</a></p>
+    </main>
+  </div>
   <script type="module" src="/src/main.jsx"></script>
 </body>
 
