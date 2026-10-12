@@ -21,7 +21,7 @@ export default {
                 },
             },
             fontFamily: {
-                mono: ['"JetBrains Mono"', '"Nanum Gothic Coding"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Consolas', 'monospace'],
+                mono: ['D2Coding', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Consolas', 'monospace'],
             },
         },
     },
