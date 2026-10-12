@@ -17,6 +17,7 @@ export default {
                     line: "#3A3F47",
                     green: "#7EE787",
                     yellow: "#F2CC60",
+                    red: "#FF7B72",
                 },
             },
             fontFamily: {
