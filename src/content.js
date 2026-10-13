@@ -83,7 +83,7 @@ export const content = {
         recentTitle: '최근 활동',
         recent: [
             { name: 'SFFE', text: 'App Store 출시' },
-            { name: '생산성 앱', text: '개발 중' },
+            { name: 'Sciuro', text: 'SaaS 개발 중' },
         ],
         placeholder: '"/projects" 를 입력해 보세요',
         inputLabel: '명령어 또는 질문 입력',
@@ -123,7 +123,7 @@ export const content = {
                     arg: 'ls ~/projects',
                     result: [
                         { cols: [{ text: 'sffe/', tone: 'bright' }, { text: 'iOS Safari 웹폰트 확장' }, { text: '출시됨', tone: 'green' }] },
-                        { cols: [{ text: 'untitled/', tone: 'muted' }, { text: '생산성 앱', tone: 'muted' }, { text: '개발 중', tone: 'yellow' }] },
+                        { cols: [{ text: 'sciuro/', tone: 'bright' }, { text: 'SaaS' }, { text: '개발 중', tone: 'yellow' }] },
                     ],
                 },
                 { kind: 'say', lines: [{ text: '프로젝트가 두 개 있어요. `/sffe` 로 SFFE를 자세히 볼 수 있어요.' }] },
@@ -201,7 +201,7 @@ export const content = {
         recentTitle: 'Recent activity',
         recent: [
             { name: 'SFFE', text: 'Live on the App Store' },
-            { name: 'Productivity app', text: 'In development' },
+            { name: 'Sciuro', text: 'SaaS in development' },
         ],
         placeholder: 'Try "/projects"',
         inputLabel: 'Type a command or question',
@@ -241,7 +241,7 @@ export const content = {
                     arg: 'ls ~/projects',
                     result: [
                         { cols: [{ text: 'sffe/', tone: 'bright' }, { text: 'Web fonts for iOS Safari' }, { text: 'Live', tone: 'green' }] },
-                        { cols: [{ text: 'untitled/', tone: 'muted' }, { text: 'Productivity app', tone: 'muted' }, { text: 'In progress', tone: 'yellow' }] },
+                        { cols: [{ text: 'sciuro/', tone: 'bright' }, { text: 'SaaS' }, { text: 'In progress', tone: 'yellow' }] },
                     ],
                 },
                 { kind: 'say', lines: [{ text: 'Two projects so far. Run `/sffe` to learn more about SFFE.' }] },
