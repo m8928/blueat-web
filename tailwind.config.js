@@ -21,7 +21,7 @@ export default {
                 },
             },
             fontFamily: {
-                mono: ['D2Coding', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Consolas', 'monospace'],
+                mono: ['Monatendard', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Consolas', 'monospace'],
             },
         },
     },

@@ -1,11 +1,16 @@
-D2Coding
-Copyright (c) 2015-2016 NHN Corporation. All rights reserved. Font designed by FONTRIX Inc.
-The files in this folder are subsets of D2Coding 1.3.2 trimmed for the web.
+Monatendard 0.3.0 (https://monatendard.github.io/)
+The files in this folder are subsets of the official Monatendard web fonts, trimmed for this site.
+
+Copyright (c) 2026 The Monatendard Project Authors.
+Copyright (c) 2023, GitHub (https://github.com/githubnext/monaspace),
+with Reserved Font Name "Monaspace", including subfamilies "Argon", "Neon",
+"Xenon", "Radon", and "Krypton".
+Copyright (c) 2021, Kil Hyung-jin (https://github.com/orioncactus/pretendard),
+with Reserved Font Name "Pretendard".
 
 This Font Software is licensed under the SIL Open Font License, Version 1.1.
 This license is copied below, and is also available with a FAQ at:
 https://openfontlicense.org
-
 
 -----------------------------------------------------------
 SIL OPEN FONT LICENSE Version 1.1 - 26 February 2007

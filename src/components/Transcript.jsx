@@ -31,7 +31,7 @@ function Rich({ text, limit = Infinity }) {
 function Line({ line, limit }) {
     if (line.cols) {
         return (
-            <div className="grid grid-cols-[12ch_minmax(0,28ch)_auto] justify-start gap-x-[2ch] max-sm:grid-cols-[10ch_minmax(0,1fr)_auto] max-sm:gap-x-[1ch]">
+            <div className="grid grid-cols-[12ch_minmax(0,28ch)_auto] justify-start gap-x-[2ch] max-sm:grid-cols-[9ch_minmax(min-content,1fr)_auto] max-sm:gap-x-[1ch]">
                 {line.cols.map((col, i) => (
                     <span key={i} className={`break-keep ${TONES[col.tone || 'fg']}`}>{col.text}</span>
                 ))}
