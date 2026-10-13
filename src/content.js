@@ -123,7 +123,7 @@ export const content = {
                     arg: 'ls ~/projects',
                     result: [
                         { cols: [{ text: 'sffe/', tone: 'bright' }, { text: 'iOS Safari 웹폰트 확장' }, { text: '출시됨', tone: 'green' }] },
-                        { cols: [{ text: 'sciuro/', tone: 'bright' }, { text: '셀프 호스팅 로그 검색' }, { text: '개발 중', tone: 'yellow' }] },
+                        { cols: [{ text: 'sciuro/', tone: 'bright' }, { text: '로그 검색 SaaS' }, { text: '개발 중', tone: 'yellow' }] },
                     ],
                 },
                 { kind: 'say', lines: [{ text: '프로젝트가 두 개 있어요. `/sffe` 로 SFFE를 자세히 볼 수 있어요.' }] },
@@ -241,7 +241,7 @@ export const content = {
                     arg: 'ls ~/projects',
                     result: [
                         { cols: [{ text: 'sffe/', tone: 'bright' }, { text: 'Web fonts for iOS Safari' }, { text: 'Live', tone: 'green' }] },
-                        { cols: [{ text: 'sciuro/', tone: 'bright' }, { text: 'Self-hosted log search' }, { text: 'In progress', tone: 'yellow' }] },
+                        { cols: [{ text: 'sciuro/', tone: 'bright' }, { text: 'Log search SaaS' }, { text: 'In progress', tone: 'yellow' }] },
                     ],
                 },
                 { kind: 'say', lines: [{ text: 'Two projects so far. Run `/sffe` to learn more about SFFE.' }] },
