@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { lineLength, parseRich } from '../lib/rich';
 
-const FRAMES = ['·', '✢', '✶', '✻', '✽', '✻', '✶', '✢'];
+// Spinner frames, growing then shrinking; all of them exist in Monatendard.
+const FRAMES = ['·', '+', '×', '*', '✶', '*', '×', '+'];
 
 const TONES = {
     fg: 'text-term-fg',
@@ -31,7 +32,7 @@ function Rich({ text, limit = Infinity }) {
 function Line({ line, limit }) {
     if (line.cols) {
         return (
-            <div className="grid grid-cols-[12ch_minmax(0,28ch)_auto] justify-start gap-x-[2ch] max-sm:grid-cols-[10ch_minmax(0,1fr)_auto] max-sm:gap-x-[1ch]">
+            <div className="grid grid-cols-[12ch_minmax(0,28ch)_auto] justify-start gap-x-[2ch] max-sm:grid-cols-[9ch_minmax(min-content,1fr)_auto] max-sm:gap-x-[1ch]">
                 {line.cols.map((col, i) => (
                     <span key={i} className={`break-keep ${TONES[col.tone || 'fg']}`}>{col.text}</span>
                 ))}
@@ -60,12 +61,12 @@ function Line({ line, limit }) {
     );
 }
 
-// "⎿" continuation row hanging under the previous item.
+// "└" continuation row hanging under the previous item.
 function Result({ children, first = true }) {
     return (
         <div className="grid grid-cols-[2ch_3ch_minmax(0,1fr)]">
             <span />
-            <span aria-hidden="true" className="text-term-dim">{first ? '⎿' : ''}</span>
+            <span aria-hidden="true" className="text-term-dim">{first ? '└' : ''}</span>
             <div className="min-w-0">{children}</div>
         </div>
     );

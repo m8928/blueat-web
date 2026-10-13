@@ -5,3 +5,4 @@ The blueat.me homepage: a small terminal-style page where visitors type commands
 - Copy and replies for both languages live in `src/content.js`; each reply is a list of tool / say / ask steps.
 - `npm run dev` for local development.
 - `npm run build` writes the site to `docs/`, which GitHub Pages serves. Commit `docs/` after building. Files in `public/` (CNAME, icons, share image) are copied there as-is.
+- Fonts: `public/fonts/` holds Monatendard split into common (`Monatendard-*.woff2`) and on-demand (`*-ext.woff2`) files. Rebuild them with `python3 scripts/build-fonts.py` (needs `pip install fonttools brotli`).
