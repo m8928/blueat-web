@@ -22,7 +22,7 @@ export function resolveCommand(raw) {
 }
 
 // Each reply is a list of steps played in order:
-//   tool — "● Name(arg)" followed by "⎿ result" lines
+//   tool — "● Name(arg)" followed by "└ result" lines
 //   say  — streamed text; supports **bold** and `code`, bullet lines, links and columns
 //   ask  — a choice dialog that replaces the prompt until answered
 // Both languages must keep the same steps in the same order.
