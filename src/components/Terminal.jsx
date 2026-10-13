@@ -17,6 +17,7 @@ const COMMAND_FORMS = {
     about: 'eat',
     projects: 'robot',
     sffe: 'sffe',
+    sciuro: 'squirrel',
     contact: 'mail',
     meow: 'cat',
     magic: 'wizard',

@@ -3,8 +3,10 @@ import { hasRareHangul } from './lib/fonts';
 const EMAIL = 'blueat@blueat.me';
 const SFFE_URL = 'https://sffe.blueat.me/';
 const SFFE_APP_STORE_URL = 'https://apps.apple.com/kr/app/sffe/id1588740825';
+const SCIURO_URL = 'https://sciu.ro/';
+const SCIURO_EMAIL = 'sciuro@sciu.ro';
 
-export const COMMAND_NAMES = ['/about', '/projects', '/sffe', '/contact', '/lang', '/help', '/clear', '/exit'];
+export const COMMAND_NAMES = ['/about', '/projects', '/sffe', '/sciuro', '/contact', '/lang', '/help', '/clear', '/exit'];
 
 // Maps free-form input (either language) to a reply key.
 // "lang" toggles; "lang:ko" / "lang:en" switch to a specific language.
@@ -17,13 +19,14 @@ export function resolveCommand(raw) {
     if (/english|영어/.test(c)) return 'lang:en';
     if (/한국어|korean/.test(c)) return 'lang:ko';
     if (/sffe|폰트|font/.test(c)) return 'sffe';
+    if (/sciuro|sciu\.ro/.test(c)) return 'sciuro';
     if (/^\/?(contact|mail|email)$/.test(c) || /연락|메일|문의|contact|e-?mail|reach/.test(c)) return 'contact';
     if (/^\/?(projects|ls|work)$/.test(c) || /작업|프로젝트|만든|project|work|built/.test(c)) return 'projects';
     if (/^\/?(about|whoami)$/.test(c) || /소개|누구|블루잇|blueat|about|who/.test(c)) return 'about';
     // Hidden transformations; not listed in /help.
     if (/^\/?(meow|cat)$/.test(c) || /야옹|냐옹|냥/.test(c)) return 'meow';
     if (/^\/?(magic|wizard)$/.test(c) || /마법|변신/.test(c)) return 'magic';
-    if (/^\/?(squirrel|sciuro)$/.test(c) || /다람쥐/.test(c)) return 'squirrel';
+    if (/^\/?squirrel$/.test(c) || /다람쥐/.test(c)) return 'squirrel';
     if (hasRareHangul(c)) return 'alien';
     return 'unknown';
 }
@@ -51,6 +54,7 @@ const koCommands = {
     '/about': 'BLUEAT 소개',
     '/projects': '만든 것들 보기',
     '/sffe': 'SFFE 자세히 보기',
+    '/sciuro': 'Sciuro 자세히 보기',
     '/contact': '연락처',
     '/lang': 'English로 보기',
     '/help': '도움말',
@@ -62,6 +66,7 @@ const enCommands = {
     '/about': 'About BLUEAT',
     '/projects': 'Things I have built',
     '/sffe': 'More about SFFE',
+    '/sciuro': 'More about Sciuro',
     '/contact': 'Get in touch',
     '/lang': '한국어로 보기',
     '/help': 'Show commands',
@@ -126,7 +131,7 @@ export const content = {
                         { cols: [{ text: 'sciuro/', tone: 'bright' }, { text: '로그 검색 SaaS' }, { text: '개발 중', tone: 'yellow' }] },
                     ],
                 },
-                { kind: 'say', lines: [{ text: '프로젝트가 두 개 있어요. `/sffe` 로 SFFE를 자세히 볼 수 있어요.' }] },
+                { kind: 'say', lines: [{ text: '프로젝트가 두 개 있어요. `/sffe` 나 `/sciuro` 로 자세히 볼 수 있어요.' }] },
             ],
             sffe: [
                 { kind: 'tool', name: 'Fetch', arg: 'https://sffe.blueat.me', result: [{ text: '200 OK 받음', tone: 'dim' }] },
@@ -146,6 +151,28 @@ export const content = {
                     options: [
                         { label: '예, 웹사이트 열기', action: { type: 'open', url: SFFE_URL }, result: 'sffe.blueat.me 를 새 탭에서 열었어요.' },
                         { label: 'App Store에서 보기', action: { type: 'open', url: SFFE_APP_STORE_URL }, result: 'App Store를 새 탭에서 열었어요.' },
+                        { label: '아니요', action: { type: 'none' }, result: '알겠어요. 다른 것도 물어보세요.' },
+                    ],
+                },
+            ],
+            sciuro: [
+                { kind: 'tool', name: 'Fetch', arg: 'https://sciu.ro', result: [{ text: '200 OK 받음', tone: 'dim' }] },
+                {
+                    kind: 'say',
+                    lines: [
+                        { text: '**Sciuro**는 로그를 모으고, SPL 스타일 검색으로 살펴보고, 예약 검색으로 알림까지 보내는 로그 검색 SaaS입니다.' },
+                        { bullet: true, text: '로그 수집 · 검색 · 알림' },
+                        { bullet: true, text: '개발 중' },
+                    ],
+                },
+                {
+                    kind: 'ask',
+                    title: 'Fetch',
+                    detail: 'https://sciu.ro',
+                    question: '새 탭에서 열까요?',
+                    options: [
+                        { label: '예, 웹사이트 열기', action: { type: 'open', url: SCIURO_URL }, result: 'sciu.ro 를 새 탭에서 열었어요.' },
+                        { label: 'Sciuro에 메일 쓰기', action: { type: 'mailto', email: SCIURO_EMAIL }, result: '메일 앱을 열었어요.' },
                         { label: '아니요', action: { type: 'none' }, result: '알겠어요. 다른 것도 물어보세요.' },
                     ],
                 },
@@ -244,7 +271,7 @@ export const content = {
                         { cols: [{ text: 'sciuro/', tone: 'bright' }, { text: 'Log search SaaS' }, { text: 'In progress', tone: 'yellow' }] },
                     ],
                 },
-                { kind: 'say', lines: [{ text: 'Two projects so far. Run `/sffe` to learn more about SFFE.' }] },
+                { kind: 'say', lines: [{ text: 'Two projects so far. Run `/sffe` or `/sciuro` to learn more.' }] },
             ],
             sffe: [
                 { kind: 'tool', name: 'Fetch', arg: 'https://sffe.blueat.me', result: [{ text: 'Received 200 OK', tone: 'dim' }] },
@@ -264,6 +291,28 @@ export const content = {
                     options: [
                         { label: 'Yes, open the website', action: { type: 'open', url: SFFE_URL }, result: 'Opened sffe.blueat.me in a new tab.' },
                         { label: 'View on the App Store', action: { type: 'open', url: SFFE_APP_STORE_URL }, result: 'Opened the App Store in a new tab.' },
+                        { label: 'No', action: { type: 'none' }, result: 'Okay. Ask me anything else.' },
+                    ],
+                },
+            ],
+            sciuro: [
+                { kind: 'tool', name: 'Fetch', arg: 'https://sciu.ro', result: [{ text: 'Received 200 OK', tone: 'dim' }] },
+                {
+                    kind: 'say',
+                    lines: [
+                        { text: '**Sciuro** is a log search SaaS: collect logs, investigate them with SPL-style search, and turn saved searches into scheduled alerts.' },
+                        { bullet: true, text: 'Log collection · Search · Alerts' },
+                        { bullet: true, text: 'In development' },
+                    ],
+                },
+                {
+                    kind: 'ask',
+                    title: 'Fetch',
+                    detail: 'https://sciu.ro',
+                    question: 'Open it in a new tab?',
+                    options: [
+                        { label: 'Yes, open the website', action: { type: 'open', url: SCIURO_URL }, result: 'Opened sciu.ro in a new tab.' },
+                        { label: 'Email Sciuro', action: { type: 'mailto', email: SCIURO_EMAIL }, result: 'Opened your mail app.' },
                         { label: 'No', action: { type: 'none' }, result: 'Okay. Ask me anything else.' },
                     ],
                 },
