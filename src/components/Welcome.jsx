@@ -1,7 +1,7 @@
 import React from 'react';
 import Mascot from './Mascot';
 
-const Welcome = ({ t, returning, onRun }) => (
+const Welcome = ({ t, returning, onRun, form }) => (
     <section aria-labelledby="welcome" className="relative mt-3 rounded-lg border border-accent">
         <span className="absolute -top-[0.8em] left-3 bg-term-bg px-1 text-accent">
             BLUEAT <span className="text-term-dim">v{__APP_VERSION__}</span>
@@ -12,7 +12,7 @@ const Welcome = ({ t, returning, onRun }) => (
                     <span className="sr-only">BLUEAT — </span>
                     {returning ? t.greeting.returning : t.greeting.first}
                 </h1>
-                <Mascot className="text-accent" />
+                <Mascot form={form} />
                 <div className="break-keep">
                     <p className="text-term-muted">{t.tagline}</p>
                     <p className="text-term-dim">~/blueat</p>
