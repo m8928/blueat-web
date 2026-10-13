@@ -1,5 +1,6 @@
 Monatendard 0.3.0 (https://monatendard.github.io/)
-The files in this folder are subsets of the official Monatendard web fonts, trimmed for this site.
+The files in this folder are subsets of the official Monatendard web fonts, split for this site
+(see scripts/build-fonts.py).
 
 Copyright (c) 2026 The Monatendard Project Authors.
 Copyright (c) 2023, GitHub (https://github.com/githubnext/monaspace),

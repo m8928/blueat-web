@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { COMMAND_NAMES, content, resolveCommand } from '../content';
+import { loadExtendedFontFor } from '../lib/fonts';
 import { lineLength, plainText } from '../lib/rich';
 import AskDialog from './AskDialog';
 import Welcome from './Welcome';
@@ -224,6 +225,7 @@ const Terminal = ({ lang, setLang, returning }) => {
     const submit = (raw) => {
         const text = raw.trim();
         if (!text || askRef.current) return;
+        loadExtendedFontFor(text);
         if (workRef.current) {
             queued.current = text;
         } else {
@@ -346,6 +348,7 @@ const Terminal = ({ lang, setLang, returning }) => {
             if (value.startsWith(strip)) value = value.slice(strip.length);
             autoplay.current.strip = '';
         }
+        loadExtendedFontFor(value);
         setInput(value);
         setSel(0);
     };

@@ -3,7 +3,8 @@
 @tailwind utilities;
 
 /* Monatendard (Monaspace Neon + Pretendard, SIL OFL 1.1, see /fonts/Monatendard-OFL.txt):
-   one Hangul syllable is exactly two Latin cells wide. */
+   one Hangul syllable is exactly two Latin cells wide. These files hold the common syllables;
+   src/lib/fonts.js adds the rest on demand. */
 @font-face {
   font-family: 'Monatendard';
   font-style: normal;
