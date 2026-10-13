@@ -4,7 +4,7 @@ import Mascot from './Mascot';
 const Welcome = ({ t, returning, onRun }) => (
     <section aria-labelledby="welcome" className="relative mt-3 rounded-lg border border-accent">
         <span className="absolute -top-[0.8em] left-3 bg-term-bg px-1 text-accent">
-            BLUEAT <span className="text-term-dim">v{__BUILD_DATE__}</span>
+            BLUEAT <span className="text-term-dim">v{__APP_VERSION__}</span>
         </span>
         <div className="grid sm:grid-cols-[minmax(0,1fr)_minmax(0,1.3fr)]">
             <div className="flex flex-col items-center gap-4 px-6 pb-6 pt-7 text-center">
