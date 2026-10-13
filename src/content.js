@@ -1,6 +1,6 @@
 import { hasRareHangul } from './lib/fonts';
 
-export const EMAIL = 'blueat@blueat.me';
+const EMAIL = 'blueat@blueat.me';
 const SFFE_URL = 'https://sffe.blueat.me/';
 const SFFE_APP_STORE_URL = 'https://apps.apple.com/kr/app/sffe/id1588740825';
 const SCIURO_URL = 'https://sciu.ro/';
@@ -79,7 +79,6 @@ export const content = {
         title: 'BLUEAT — 만들고 싶은 것을 만듭니다',
         greeting: { first: '환영합니다!', returning: '다시 오신 걸 환영합니다!' },
         tagline: '만들고 싶은 것을 만듭니다.',
-        company: '상호 블루엣(BLUEAT)',
         tipsTitle: '시작하기',
         tips: [
             { before: '', cmd: '/about', after: ' 으로 소개 보기' },
@@ -221,7 +220,6 @@ export const content = {
         title: 'BLUEAT — Building what we want to use',
         greeting: { first: 'Welcome!', returning: 'Welcome back!' },
         tagline: 'Building what we want to use.',
-        company: 'BLUEAT (블루엣)',
         tipsTitle: 'Getting started',
         tips: [
             { before: 'Run ', cmd: '/about', after: ' to meet BLUEAT' },
