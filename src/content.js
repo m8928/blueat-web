@@ -1,6 +1,6 @@
 import { hasRareHangul } from './lib/fonts';
 
-const EMAIL = 'blueat@blueat.me';
+export const EMAIL = 'blueat@blueat.me';
 const SFFE_URL = 'https://sffe.blueat.me/';
 const SFFE_APP_STORE_URL = 'https://apps.apple.com/kr/app/sffe/id1588740825';
 const SCIURO_URL = 'https://sciu.ro/';
@@ -64,7 +64,7 @@ const koCommands = {
 
 const enCommands = {
     '/about': 'About BLUEAT',
-    '/projects': 'Things I have built',
+    '/projects': 'Things we have built',
     '/sffe': 'More about SFFE',
     '/sciuro': 'More about Sciuro',
     '/contact': 'Get in touch',
@@ -79,6 +79,7 @@ export const content = {
         title: 'BLUEAT — 만들고 싶은 것을 만듭니다',
         greeting: { first: '환영합니다!', returning: '다시 오신 걸 환영합니다!' },
         tagline: '만들고 싶은 것을 만듭니다.',
+        company: '상호 블루엣(BLUEAT)',
         tipsTitle: '시작하기',
         tips: [
             { before: '', cmd: '/about', after: ' 으로 소개 보기' },
@@ -116,8 +117,8 @@ export const content = {
                 {
                     kind: 'say',
                     lines: [
-                        { text: '거창한 목표보다는 **제가 쓰고 싶은 앱**을 만듭니다.' },
-                        { text: 'BLUEAT은 저의 아이디어를 기록하는 공간입니다.' },
+                        { text: '**BLUEAT(블루엣)**은 직접 쓰고 싶은 소프트웨어를 만드는 회사입니다.' },
+                        { text: 'iOS Safari 확장 SFFE를 출시했고, 로그 검색 SaaS Sciuro를 개발하고 있습니다.' },
                     ],
                 },
             ],
@@ -162,6 +163,7 @@ export const content = {
                     lines: [
                         { text: '**Sciuro**는 로그를 모으고, SPL 스타일 검색으로 살펴보고, 예약 검색으로 알림까지 보내는 로그 검색 SaaS입니다.' },
                         { bullet: true, text: '로그 수집 · 검색 · 알림' },
+                        { bullet: true, text: 'Claude로 질문을 검색어로 바꾸고 알림을 요약하는 기능' },
                         { bullet: true, text: '개발 중' },
                     ],
                 },
@@ -216,13 +218,14 @@ export const content = {
         },
     },
     en: {
-        title: 'BLUEAT — Building what I want',
+        title: 'BLUEAT — Building what we want to use',
         greeting: { first: 'Welcome!', returning: 'Welcome back!' },
-        tagline: 'Building what I want.',
+        tagline: 'Building what we want to use.',
+        company: 'BLUEAT (블루엣)',
         tipsTitle: 'Getting started',
         tips: [
             { before: 'Run ', cmd: '/about', after: ' to meet BLUEAT' },
-            { before: 'Run ', cmd: '/projects', after: ' to see what I have built' },
+            { before: 'Run ', cmd: '/projects', after: ' to see what we have built' },
             { before: 'Run ', cmd: '/contact', after: ' to get in touch' },
         ],
         recentTitle: 'Recent activity',
@@ -256,8 +259,8 @@ export const content = {
                 {
                     kind: 'say',
                     lines: [
-                        { text: 'I simply create **applications that I want to use**.' },
-                        { text: 'BLUEAT is a personal archive of my creative ideas.' },
+                        { text: '**BLUEAT** is a company that builds the software we want to use ourselves.' },
+                        { text: 'We shipped SFFE, a Safari extension for iOS, and are building Sciuro, a log search SaaS.' },
                     ],
                 },
             ],
@@ -302,6 +305,7 @@ export const content = {
                     lines: [
                         { text: '**Sciuro** is a log search SaaS: collect logs, investigate them with SPL-style search, and turn saved searches into scheduled alerts.' },
                         { bullet: true, text: 'Log collection · Search · Alerts' },
+                        { bullet: true, text: 'Claude turns questions into searches and summarizes alerts' },
                         { bullet: true, text: 'In development' },
                     ],
                 },
@@ -320,7 +324,7 @@ export const content = {
             contact: [
                 {
                     kind: 'say',
-                    lines: [{ text: 'Drop me an email.' }, { text: EMAIL, href: `mailto:${EMAIL}` }],
+                    lines: [{ text: 'Drop us an email.' }, { text: EMAIL, href: `mailto:${EMAIL}` }],
                 },
                 {
                     kind: 'ask',

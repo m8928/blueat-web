@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { COMMAND_NAMES, content, resolveCommand } from '../content';
+import { COMMAND_NAMES, EMAIL, content, resolveCommand } from '../content';
 import { loadExtendedFontFor } from '../lib/fonts';
 import { lineLength, plainText } from '../lib/rich';
 import AskDialog from './AskDialog';
@@ -594,6 +594,9 @@ const Terminal = ({ lang, setLang, returning }) => {
                     </div>
                 </div>
             </main>
+            <footer className="mx-auto mt-10 max-w-[880px] px-1 text-[13px] text-term-dim">
+                {t.company} · <a href={`mailto:${EMAIL}`} className="hover:text-term-fg">{EMAIL}</a>
+            </footer>
         </div>
     );
 };
