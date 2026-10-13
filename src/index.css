@@ -64,21 +64,11 @@
     animation: shimmer 2s linear infinite;
   }
 
-  /* Mascot eyelids: closed for a moment every few seconds. */
-  .mascot-lid {
-    opacity: 0;
-    animation: blink 5s infinite;
-  }
-
   @media (prefers-reduced-motion: reduce) {
     .shimmer {
       animation: none;
       background: none;
       color: theme('colors.accent');
-    }
-
-    .mascot-lid {
-      animation: none;
     }
   }
 }
@@ -88,7 +78,38 @@
   to { background-position: -150% 0; }
 }
 
-@keyframes blink {
-  0%, 92%, 100% { opacity: 0; }
-  94%, 97% { opacity: 1; }
+/* Mascot (src/components/Mascot.jsx). Pixels are SVG rects; --lid is the colour an
+   animated pixel switches to, and fill-box makes translate(-100%) move exactly one pixel. */
+.mx-poof { transform-origin: 50% 100%; animation: mx-poof 0.45s cubic-bezier(.2, .8, .2, 1); }
+.mx-blink { animation: mx-blink 4.5s step-end infinite; }
+.mx-cursor { animation: mx-flash 1s steps(1) infinite; }
+.mx-chomp { animation: mx-chomp 0.6s steps(1) infinite; }
+.mx-dot { animation: mx-fade 1.2s steps(1) infinite; }
+.mx-twinkle { animation: mx-fade 1.2s steps(1) infinite; }
+.mx-think { animation: mx-think 1.5s steps(3) infinite; }
+.mx-think-2 { animation-delay: 0.25s; }
+.mx-think-3 { animation-delay: 0.5s; }
+.mx-drip { transform-box: fill-box; animation: mx-drip 1.6s ease-in infinite; }
+.mx-nod { transform-box: fill-box; animation: mx-nod 3.2s ease-in-out infinite; }
+.mx-zzz { animation: mx-zzz 3.2s ease-in-out infinite; }
+
+@keyframes mx-poof {
+  0% { transform: scale(.6); filter: brightness(2); }
+  60% { transform: scale(1.08); }
+  100% { transform: none; filter: none; }
+}
+@keyframes mx-blink { 95%, 98% { fill: var(--lid); } }
+@keyframes mx-flash { 50% { opacity: 0; } }
+@keyframes mx-chomp { 50% { fill: var(--lid); } }
+@keyframes mx-fade { 50% { opacity: .3; } }
+@keyframes mx-think { 0% { opacity: .3; } 50% { opacity: 1; } }
+@keyframes mx-drip { 0% { transform: translateY(-30%); opacity: 1; } 100% { transform: translateY(60%); opacity: .2; } }
+@keyframes mx-nod { 0%, 68%, 100% { transform: none; } 76%, 88% { transform: translateY(-100%); } }
+@keyframes mx-zzz { 0%, 68%, 100% { opacity: 1; } 76%, 88% { opacity: .2; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .mx-poof, .mx-blink, .mx-cursor, .mx-chomp, .mx-dot, .mx-twinkle,
+  .mx-nod, .mx-zzz, .mx-think, .mx-drip {
+    animation: none;
+  }
 }

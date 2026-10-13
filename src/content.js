@@ -1,3 +1,5 @@
+import { hasRareHangul } from './lib/fonts';
+
 const EMAIL = 'blueat@blueat.me';
 const SFFE_URL = 'https://sffe.blueat.me/';
 const SFFE_APP_STORE_URL = 'https://apps.apple.com/kr/app/sffe/id1588740825';
@@ -18,6 +20,11 @@ export function resolveCommand(raw) {
     if (/^\/?(contact|mail|email)$/.test(c) || /연락|메일|문의|contact|e-?mail|reach/.test(c)) return 'contact';
     if (/^\/?(projects|ls|work)$/.test(c) || /작업|프로젝트|만든|project|work|built/.test(c)) return 'projects';
     if (/^\/?(about|whoami)$/.test(c) || /소개|누구|블루잇|blueat|about|who/.test(c)) return 'about';
+    // Hidden transformations; not listed in /help.
+    if (/^\/?(meow|cat)$/.test(c) || /야옹|냐옹|냥/.test(c)) return 'meow';
+    if (/^\/?(magic|wizard)$/.test(c) || /마법|변신/.test(c)) return 'magic';
+    if (/^\/?(squirrel|sciuro)$/.test(c) || /다람쥐/.test(c)) return 'squirrel';
+    if (hasRareHangul(c)) return 'alien';
     return 'unknown';
 }
 
@@ -98,7 +105,7 @@ export const content = {
         langLabel: '언어 선택',
         commands: koCommands,
         replies: {
-            help: helpReply('이런 걸 물어볼 수 있어요.', koCommands, '`?` 를 누르면 단축키를 볼 수 있어요.'),
+            help: helpReply('이런 걸 물어볼 수 있어요.', koCommands, '`?` 를 누르면 단축키를 볼 수 있어요. 숨은 변신도 몇 가지 있어요.'),
             about: [
                 { kind: 'tool', name: 'Read', arg: 'about.md', result: [{ text: '2줄 읽음', tone: 'dim' }] },
                 {
@@ -163,6 +170,22 @@ export const content = {
             lang: [{ kind: 'say', lines: [{ text: '한국어로 바꿨어요.', tone: 'muted' }] }],
             exit: [{ kind: 'say', lines: [{ text: '탭을 닫으면 끝나요. 또 놀러 오세요!' }] }],
             unknown: [{ kind: 'say', lines: [{ text: '아직 그 질문엔 답하지 못해요. `/help` 를 입력해 보세요.', tone: 'muted' }] }],
+            meow: [
+                { kind: 'tool', name: 'Transform', arg: 'cat', result: [{ text: '고양이 모드', tone: 'dim' }] },
+                { kind: 'say', lines: [{ text: '야옹! 고양이로 변신했어요. 잠시 뒤 원래 모습으로 돌아와요.' }] },
+            ],
+            magic: [
+                { kind: 'tool', name: 'Transform', arg: 'wizard', result: [{ text: '마법사 모드', tone: 'dim' }] },
+                { kind: 'say', lines: [{ text: '짜잔! 마법사로 변신했어요.' }] },
+            ],
+            squirrel: [
+                { kind: 'tool', name: 'Transform', arg: 'squirrel', result: [{ text: '다람쥐 모드', tone: 'dim' }] },
+                { kind: 'say', lines: [{ text: '도토리 냠냠! 다람쥐로 변신했어요.' }] },
+            ],
+            alien: [
+                { kind: 'tool', name: 'Detect', arg: 'language', result: [{ text: '외계어 감지', tone: 'dim' }] },
+                { kind: 'say', lines: [{ text: '외계어가 들어와서 외계인으로 변신했어요. 그래도 글자는 잘 나오죠?' }] },
+            ],
         },
     },
     en: {
@@ -200,7 +223,7 @@ export const content = {
         langLabel: 'Language',
         commands: enCommands,
         replies: {
-            help: helpReply('Here is what you can ask.', enCommands, 'Press `?` to see shortcuts.'),
+            help: helpReply('Here is what you can ask.', enCommands, 'Press `?` to see shortcuts. There are a few hidden transformations, too.'),
             about: [
                 { kind: 'tool', name: 'Read', arg: 'about.md', result: [{ text: 'Read 2 lines', tone: 'dim' }] },
                 {
@@ -265,6 +288,22 @@ export const content = {
             lang: [{ kind: 'say', lines: [{ text: 'Switched to English.', tone: 'muted' }] }],
             exit: [{ kind: 'say', lines: [{ text: 'Close the tab to leave. Come back soon!' }] }],
             unknown: [{ kind: 'say', lines: [{ text: "I can't answer that yet. Try `/help`.", tone: 'muted' }] }],
+            meow: [
+                { kind: 'tool', name: 'Transform', arg: 'cat', result: [{ text: 'Cat mode', tone: 'dim' }] },
+                { kind: 'say', lines: [{ text: 'Meow! Turned into a cat for a moment.' }] },
+            ],
+            magic: [
+                { kind: 'tool', name: 'Transform', arg: 'wizard', result: [{ text: 'Wizard mode', tone: 'dim' }] },
+                { kind: 'say', lines: [{ text: 'Ta-da! Turned into a wizard.' }] },
+            ],
+            squirrel: [
+                { kind: 'tool', name: 'Transform', arg: 'squirrel', result: [{ text: 'Squirrel mode', tone: 'dim' }] },
+                { kind: 'say', lines: [{ text: 'Nom nom, acorns! Turned into a squirrel.' }] },
+            ],
+            alien: [
+                { kind: 'tool', name: 'Detect', arg: 'language', result: [{ text: 'Alien script detected', tone: 'dim' }] },
+                { kind: 'say', lines: [{ text: 'Alien script detected, so I turned into an alien. It still renders fine, right?' }] },
+            ],
         },
     },
 };

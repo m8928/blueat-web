@@ -1,12 +1,13 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import pkg from './package.json'
 
 // https://vitejs.dev/config/
 export default defineConfig({
     plugins: [react()],
     define: {
-        // Shown as the "version" in the welcome box, e.g. 2026.10.12.
-        __BUILD_DATE__: JSON.stringify(new Date().toISOString().slice(0, 10).replaceAll('-', '.')),
+        // Shown in the welcome box's top border; bump "version" in package.json to change it.
+        __APP_VERSION__: JSON.stringify(pkg.version),
     },
     base: '/', // Custom domain blueat.me usually implies root
     build: {

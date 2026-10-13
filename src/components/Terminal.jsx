@@ -3,11 +3,31 @@ import { COMMAND_NAMES, content, resolveCommand } from '../content';
 import { loadExtendedFontFor } from '../lib/fonts';
 import { lineLength, plainText } from '../lib/rich';
 import AskDialog from './AskDialog';
+import Mascot from './Mascot';
 import Welcome from './Welcome';
 import { AnswerLine, InterruptedLine, Spinner, StepBlock, UserLine } from './Transcript';
 
 // Commands typed automatically on a first visit.
 const AUTOPLAY = ['/about', '/projects'];
+
+// The mascot turns into one of these while a reply plays and for a moment after.
+// Replies not listed here end with a quick "success" face instead.
+const COMMAND_FORMS = {
+    help: 'terminal',
+    about: 'eat',
+    projects: 'robot',
+    sffe: 'sffe',
+    contact: 'mail',
+    meow: 'cat',
+    magic: 'wizard',
+    squirrel: 'squirrel',
+    alien: 'alien',
+};
+const HOLD_FORM = 8000;
+const HOLD_SUCCESS = 2500;
+const HOLD_INTERRUPTED = 3000;
+const DOZE_AFTER = 30000;
+const SLEEP_AFTER = 120000;
 
 const matchesMedia = (query) => typeof window !== 'undefined' && !!window.matchMedia?.(query).matches;
 const reducedMotion = () => matchesMedia('(prefers-reduced-motion: reduce)');
@@ -35,6 +55,7 @@ const Terminal = ({ lang, setLang, returning }) => {
     const [cursor, setCursor] = useState(null);
     const [showShortcuts, setShowShortcuts] = useState(false);
     const [announcement, setAnnouncement] = useState('');
+    const [mascot, setMascot] = useState('base');
 
     const inputRef = useRef(null);
     const timers = useRef(new Set());
@@ -45,6 +66,10 @@ const Terminal = ({ lang, setLang, returning }) => {
     const stickToBottom = useRef(true);
     const hasRendered = useRef(false);
     const askWasOpen = useRef(false);
+    const mascotRef = useRef('base');
+    const mascotTimer = useRef(null);
+    const replyKey = useRef(null);
+    const lastActivity = useRef(Date.now());
 
     // Timers and replies outlive renders, so they read the latest state through refs.
     const langRef = useRef(lang);
@@ -76,6 +101,16 @@ const Terminal = ({ lang, setLang, returning }) => {
 
     useEffect(() => cancelAll, [cancelAll]);
 
+    // Shows a form, then falls back to the base mascot after `hold` ms (or keeps it).
+    const showForm = useCallback((form, hold) => {
+        clearTimeout(mascotTimer.current);
+        mascotRef.current = form;
+        setMascot(form);
+        if (hold) mascotTimer.current = setTimeout(() => showForm('base'), hold);
+    }, []);
+
+    useEffect(() => () => clearTimeout(mascotTimer.current), []);
+
     const newId = () => `b${nextId.current++}`;
     const updateBlock = (id, patch) => setBlocks((bs) => bs.map((b) => (b.id === id ? { ...b, ...patch } : b)));
 
@@ -86,6 +121,11 @@ const Terminal = ({ lang, setLang, returning }) => {
 
     const finish = () => {
         setWorking(null);
+        const key = replyKey.current;
+        replyKey.current = null;
+        if (COMMAND_FORMS[key]) showForm(COMMAND_FORMS[key], HOLD_FORM);
+        else if (key === 'unknown') showForm('base');
+        else if (key) showForm('success', HOLD_SUCCESS);
         if (queued.current) {
             const text = queued.current;
             queued.current = null;
@@ -105,6 +145,7 @@ const Terminal = ({ lang, setLang, returning }) => {
         const step = steps[index];
         const fast = reducedMotion();
         const id = newId();
+        if (index === 0 && COMMAND_FORMS[key]) showForm(COMMAND_FORMS[key]);
         const next = (delay) => schedule(() => playSteps(key, index + 1), fast ? 0 : delay);
 
         if (step.kind === 'tool') {
@@ -155,6 +196,8 @@ const Terminal = ({ lang, setLang, returning }) => {
             return true;
         }
         setBlocks((bs) => [...bs, { id: newId(), type: 'user', text }]);
+        replyKey.current = key.startsWith('lang') ? 'lang' : key;
+        showForm('thinking');
         setWorking({ verb: Math.floor(Math.random() * content[langRef.current].verbs.length), start: Date.now() });
         schedule(() => {
             if (key.startsWith('lang')) {
@@ -191,6 +234,8 @@ const Terminal = ({ lang, setLang, returning }) => {
         stopAutoplay();
         cancelAll();
         queued.current = null;
+        replyKey.current = null;
+        showForm('interrupted', HOLD_INTERRUPTED);
         setBlocks((bs) => [
             ...bs.map((b) => (b.type === 'step' && (b.status === 'running' || b.status === 'streaming') ? { ...b, status: 'cut' } : b)),
             { id: newId(), type: 'interrupted' },
@@ -317,6 +362,30 @@ const Terminal = ({ lang, setLang, returning }) => {
         if (stickToBottom.current) window.scrollTo({ top: document.documentElement.scrollHeight });
     }, [blocks, work, ask]);
 
+    // Left alone, the mascot dozes off and then falls asleep; any key, click, scroll or touch
+    // wakes it. It stays awake while a reply, a dialog or the first-visit demo is running.
+    useEffect(() => {
+        const wake = () => {
+            lastActivity.current = Date.now();
+            if (mascotRef.current === 'dozing' || mascotRef.current === 'sleeping') showForm('base');
+        };
+        const events = ['keydown', 'pointerdown', 'wheel', 'touchstart'];
+        events.forEach((type) => window.addEventListener(type, wake, { passive: true }));
+        const check = setInterval(() => {
+            if (workRef.current || askRef.current || autoplay.current.on) {
+                lastActivity.current = Date.now();
+                return;
+            }
+            const idle = Date.now() - lastActivity.current;
+            if (idle >= SLEEP_AFTER && mascotRef.current !== 'sleeping') showForm('sleeping');
+            else if (idle >= DOZE_AFTER && idle < SLEEP_AFTER && mascotRef.current !== 'dozing') showForm('dozing');
+        }, 1000);
+        return () => {
+            events.forEach((type) => window.removeEventListener(type, wake));
+            clearInterval(check);
+        };
+    }, [showForm]);
+
     // "/" anywhere opens the command menu; Esc anywhere interrupts.
     const latest = useRef({});
     latest.current = { interrupt, stopAutoplay };
@@ -429,7 +498,7 @@ const Terminal = ({ lang, setLang, returning }) => {
     return (
         <div className="min-h-screen px-4 py-8 sm:px-8 sm:py-12">
             <main className="mx-auto max-w-[880px]">
-                <Welcome t={t} returning={returning} onRun={runFromClick} />
+                <Welcome t={t} returning={returning} onRun={runFromClick} form={mascot} />
 
                 <section aria-label={t.transcriptLabel}>
                     {blocks.map(renderBlock)}
@@ -469,6 +538,7 @@ const Terminal = ({ lang, setLang, returning }) => {
                             enterKeyHint="send"
                             className="h-[30px] min-w-0 flex-1 bg-transparent text-term-bright caret-accent placeholder:text-term-dim focus:outline-none"
                         />
+                        <Mascot form={mascot} scale={2} className="mr-1 shrink-0" />
                     </form>
                 )}
 

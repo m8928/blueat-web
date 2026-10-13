@@ -6,8 +6,8 @@ Monatendard 0.3.0 web fonts and splits each weight in two:
 
   Monatendard-<Weight>.woff2      Latin, symbols, compatibility jamo and the 2,350
                                   common syllables of KS X 1001; every visitor loads it
-  Monatendard-<Weight>-ext.woff2  every other Hangul syllable and the conjoining jamo;
-                                  src/lib/fonts.js loads it only when a visitor types one
+  Monatendard-<Weight>-ext.woff2  every other Hangul syllable; src/lib/fonts.js loads it
+                                  only when a visitor types one
 
 Run from the repository root: python3 scripts/build-fonts.py
 """
@@ -51,12 +51,11 @@ MAIN = (
     | ksx1001(0xA1, 0xAC)
     | ksx1001(0xB0, 0xC8)
 )
-EXT = (
-    set(range(0xAC00, 0xD7A4))  # all Hangul syllables
-    | set(range(0x1100, 0x1200))  # conjoining jamo
-    | set(range(0xA960, 0xA980))  # jamo extended-A
-    | set(range(0xD7B0, 0xD800))  # jamo extended-B
-) - MAIN
+# Syllables only. The -ext face is declared for the whole syllable block, so the browser
+# tries it first for every syllable; if it also had conjoining jamo, the shaper would
+# spell common syllables it lacks (고 -> ᄀ + ᅩ) out of loose jamo instead of falling
+# back to the main file.
+EXT = set(range(0xAC00, 0xD7A4)) - MAIN  # Hangul syllables
 
 
 def download(weight: str) -> bytes:
